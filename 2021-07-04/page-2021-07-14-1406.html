@@ -16,10 +16,10 @@ $(function(){
     $("#btn").on( "click", function(){
 
         formData = {};
-        formData["param1"] = "テスト";
+        formData["zipcode"] = $("#fld1").val() + "-" + $("#fld2").val();
 
         $.ajax({
-            url: "https://localhost/app/form-action-json.php",
+            url: "https://api.zipaddress.net/",
             type: "GET",
             data: formData,
             cache: false
@@ -28,7 +28,7 @@ $(function(){
             console.log( "status:" + textStatus );
             console.log( "data:" + JSON.stringify(data, null, "	") );
 
-            $("#content").text( JSON.stringify(data, null, "	") );
+            $("#fld3").val(  data.data.fullAddress  );
 
         })
         .fail(function(jqXHR, textStatus, errorThrown ){
@@ -45,9 +45,13 @@ $(function(){
 });
 </script>
 
-<input id="btn" name="btn" type="button" value="実行">
-<div id="content" style="white-space:pre">
-</div>
+<input id="fld1" name="fld1" type="text" value="">
+<input id="fld2" name="fld2" type="text" value="">
 
-</body>
+<input id="btn" name="btn" type="button" value="実行">
+<div id="content">
+
+<input id="fld3" name="fld3" type="text" value="" size="80">
+
+</div></body>
 </html>
